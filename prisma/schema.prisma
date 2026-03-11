@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Enquiry {
+  id         Int       @id @default(autoincrement())
+  name       String
+  email      String?
+  phone      String
+  moveInDate DateTime?
+  roomType   String?
+  message    String?
+  createdAt  DateTime  @default(now())
+}
+
+model Room {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  price       Float
+  occupancy   String
+  amenities   String[]
+  images      String[]
+  createdAt   DateTime @default(now())
+}
+
+model Blog {
+  id            Int      @id @default(autoincrement())
+  title         String
+  slug          String   @unique
+  content       String
+  excerpt       String
+  featuredImage String?
+  createdAt     DateTime @default(now())
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  password String
+  role     String   @default("ADMIN")
+  createdAt DateTime @default(now())
+}
